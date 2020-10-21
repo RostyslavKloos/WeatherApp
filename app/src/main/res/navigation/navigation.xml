@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/currentWeatherFragment">
+
+    <fragment
+        android:id="@+id/currentWeatherFragment"
+        android:name="com.example.weatherapp.ui.fragment.CurrentWeatherFragment"
+        android:label="current_weather_fragment"
+        tools:layout="@layout/current_weather_fragment">
+
+        <argument
+            android:name="city"
+            android:defaultValue="London"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailWeatherFragment"
+        android:name="com.example.weatherapp.ui.fragment.DetailWeatherFragment"
+        android:label="detail_weather_fragment"
+        tools:layout="@layout/detail_weather_fragment">
+        <argument
+            android:name="weatherItem"
+            app:argType="com.example.weatherapp.data.domain.model.currentWeather.Weather" />
+    </fragment>
+    <fragment
+        android:id="@+id/futureWeatherFragment"
+        android:name="com.example.weatherapp.ui.fragment.ForecastWeatherFragment"
+        android:label="future_weather_fragment"
+        tools:layout="@layout/future_weather_fragment">
+        <action
+            android:id="@+id/action_futureWeatherFragment_to_detailWeatherFragment"
+            app:destination="@id/detailWeatherFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.weatherapp.ui.fragment.MapFragment"
+        android:label="MapFragment">
+
+        <action
+            android:id="@+id/action_mapFragment_to_currentWeatherFragment"
+            app:destination="@id/currentWeatherFragment" />
+
+    </fragment>
+</navigation>

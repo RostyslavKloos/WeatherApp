@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="today">Today</string>
+    <string name="future">5 Days</string>
+    <string name="settings">Settings</string>
+    <string name="feels_like_txt">Feels like</string>
+    <string name="humidity_txt">Humidity</string>
+    <string name="pressure_txt">Pressure</string>
+    <string name="refresh_button_txt">Refresh</string>
+    <string name="map">MAP</string>
+    <string name="weather_button_txt">weather</string>
+    <string name="api_key">AIzaSyB2GgEPRzXyIcJ3wHhhSc9rwsUQQ22Vhqo</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyB2GgEPRzXyIcJ3wHhhSc9rwsUQQ22Vhqo</string>
+</resources>

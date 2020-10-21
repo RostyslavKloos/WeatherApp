@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/currentWeatherFragment"
+        android:title="@string/today"
+        android:icon="@drawable/ic_baseline_today_24">
+    </item>
+    <item
+        android:id="@+id/futureWeatherFragment"
+        android:title="@string/future"
+        android:icon="@drawable/ic_baseline_next_week_24">
+    </item>
+    <item
+        android:id="@+id/mapFragment"
+        android:title="@string/map"
+        android:icon="@drawable/ic_baseline_location_on_24"
+        >
+    </item>
+</menu>
