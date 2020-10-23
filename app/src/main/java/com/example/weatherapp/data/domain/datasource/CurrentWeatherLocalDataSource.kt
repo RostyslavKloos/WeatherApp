@@ -9,4 +9,6 @@ class CurrentWeatherLocalDataSource(private val currentWeatherDao: ICurrentWeath
      fun insertCurrentWeather(currentWeatherResponse: CurrentWeatherResponse) = currentWeatherDao.deleteAndInsert(
         CurrentWeatherEntity(currentWeatherResponse)
     )
+
+    fun deleteCurrentWeather() = currentWeatherDao.deleteCurrentWeather()
 }

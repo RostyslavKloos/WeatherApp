@@ -1,7 +1,9 @@
 package com.example.weatherapp.data.repository
 
+import androidx.lifecycle.LiveData
 import com.example.weatherapp.data.domain.datasource.CurrentWeatherLocalDataSource
 import com.example.weatherapp.data.domain.datasource.ForecastRemoteDataSource
+import com.example.weatherapp.data.entities.CurrentWeatherEntity
 import com.example.weatherapp.utils.performGetOperation
 
 class CurrentWeatherRepository(private val currentWeatherRemoteDataSource: ForecastRemoteDataSource, private val currentWeatherLocalDataSource: CurrentWeatherLocalDataSource) {
@@ -18,4 +20,8 @@ class CurrentWeatherRepository(private val currentWeatherRemoteDataSource: Forec
          networkCall = {currentWeatherRemoteDataSource.getCurrentWeatherByLatLng(lat, lon, languageCode, metric)},
          saveCallResult = {currentWeatherLocalDataSource.insertCurrentWeather(it)}
      )
+
+    fun getCurrentWeatherFromDB(): LiveData<CurrentWeatherEntity> {
+        return currentWeatherLocalDataSource.getCurrentWeather()
+    }
 }

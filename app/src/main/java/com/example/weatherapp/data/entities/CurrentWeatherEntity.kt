@@ -33,6 +33,7 @@ data class CurrentWeatherEntity(
     @Embedded
     val wind: WindEntity?
 ) : Parcelable {
+
     @Ignore
     constructor(currentWeather: CurrentWeatherResponse) : this(
         visibility = currentWeather.visibility,
@@ -52,5 +53,10 @@ data class CurrentWeatherEntity(
         return weather?.first()
     }
 
-
+    fun getCurrentWeatherIconValue(): String? {
+        return StringBuilder("http://openweathermap.org/img/wn/")
+            .append(getCurrentWeather()?.icon)
+            .append(".png")
+            .toString()
+    }
 }

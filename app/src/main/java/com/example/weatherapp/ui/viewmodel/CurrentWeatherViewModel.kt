@@ -3,7 +3,7 @@ package com.example.weatherapp.ui.viewmodel
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.weatherapp.data.domain.datasource.CurrentWeatherLocalDataSource
-import com.example.weatherapp.data.local.dao.remote.IApiWeatherService
+import com.example.weatherapp.data.domain.remote.IApiWeatherService
 import com.example.weatherapp.data.domain.datasource.ForecastRemoteDataSource
 import com.example.weatherapp.data.local.db.ForecastDatabase
 
@@ -22,6 +22,10 @@ class CurrentWeatherViewModel(application: Application) : AndroidViewModel(appli
     private val repository = CurrentWeatherRepository(remoteDataSource, currentWeatherLocalDataSource)
 
     private val _params: MutableLiveData<WeatherUseCase.WeatherParams> = MutableLiveData()
+
+    //fun fetchData(): LiveData<CurrentWeatherEntity> = repository.getCurrentWeatherFromDB()
+
+    fun fetchData(): LiveData<CurrentWeatherEntity> = currentWeatherLocalDataSource.getCurrentWeather()
 
     fun setCurrentWeatherParams(params: WeatherUseCase.WeatherParams) {
         if (_params.value == params)

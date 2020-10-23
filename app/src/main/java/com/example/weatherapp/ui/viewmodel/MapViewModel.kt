@@ -3,7 +3,7 @@ package com.example.weatherapp.ui.viewmodel
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.weatherapp.data.domain.datasource.CurrentWeatherLocalDataSource
-import com.example.weatherapp.data.local.dao.remote.IApiWeatherService
+import com.example.weatherapp.data.domain.remote.IApiWeatherService
 import com.example.weatherapp.data.domain.datasource.ForecastRemoteDataSource
 import com.example.weatherapp.data.local.db.ForecastDatabase
 import com.example.weatherapp.data.repository.CurrentWeatherRepository
@@ -26,10 +26,10 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
             return
         _params.postValue(params)
     }
+
     private val _weather = _params.switchMap {
         repository.getCurrentWeatherByLatLng(it._latitude, it._longitude, it._languageCode, it._units)
     }
 
     val weather: LiveData<Resource<CurrentWeatherEntity>> = _weather
-
 }

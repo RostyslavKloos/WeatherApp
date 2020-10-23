@@ -20,4 +20,8 @@ class ForecastRepository(
             forecastLocalDataSource.insertForecast(it)
         }
     )
+
+    fun getForecast() {
+        forecastLocalDataSource.getForecast()
+    }
 }

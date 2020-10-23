@@ -38,6 +38,16 @@ data class DayInfo(
     val wind: Wind?
 ) : Parcelable {
 
+    fun getWeatherItem(): Weather? {
+        return weather?.first()
+    }
+    fun getWeatherItemValue(): String? {
+        return StringBuilder("http://openweathermap.org/img/wn/")
+            .append(getWeatherItem()?.icon)
+            .append(".png")
+            .toString()
+    }
+
     fun getDay(): String? {
         return dt?.let {
             getDateTime(it)?.getDisplayName(TextStyle.FULL, Locale.getDefault()) }
@@ -61,4 +71,11 @@ data class DayInfo(
         }
     }
 
+    fun getHourOfDay(): String {
+        return dtTxt?.substringAfter(" ")?.substringBeforeLast(":") ?: "00:00"
+    }
+
+    fun getDayDate(): String {
+        return dtTxt?.substringBefore(" ") ?: ""
+    }
 }

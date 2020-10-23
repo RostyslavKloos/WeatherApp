@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import com.example.weatherapp.data.domain.model.currentWeather.Main
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -15,32 +16,39 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "Main")
 data class MainEntity(
     @ColumnInfo(name = "temp")
-    var temp: Double?,
-    @ColumnInfo(name = "tempMin")
+    val temp: Double?,
+
+    @ColumnInfo(name = "feels_like")
+    val feelsLike: Double?,
+
+    @ColumnInfo(name = "temp_min")
     var tempMin: Double?,
-    @ColumnInfo(name = "grndLevel")
-    var grndLevel: Double?,
-    @ColumnInfo(name = "tempKf")
-    var tempKf: Double?,
-    @ColumnInfo(name = "humidity")
-    var humidity: Int?,
+
+    @ColumnInfo(name = "temp_max")
+    var tempMax: Double?,
+
     @ColumnInfo(name = "pressure")
-    var pressure: Double?,
-    @ColumnInfo(name = "seaLevel")
-    var seaLevel: Double?,
-    @ColumnInfo(name = "tempMax")
-    var tempMax: Double?
+    val pressure: Double?,
+
+    @ColumnInfo(name = "humidity")
+    val humidity: Int?,
+
+    @ColumnInfo(name = "sea_level")
+    val seaLevel: Double?,
+
+    @ColumnInfo(name = "grnd_level")
+    val grndLevel: Double?
 ) : Parcelable {
     @Ignore
     constructor(main: Main?) : this(
         temp = main?.temp,
+        feelsLike = main?.feelsLike,
         tempMin = main?.tempMin,
-        grndLevel = main?.grndLevel,
-        tempKf = main?.tempKf,
-        humidity = main?.humidity,
+        tempMax = main?.tempMax,
         pressure = main?.pressure,
+        humidity = main?.humidity,
         seaLevel = main?.seaLevel,
-        tempMax = main?.tempMax
+        grndLevel = main?.grndLevel,
     )
 
     fun getTempString(): String {
@@ -49,5 +57,10 @@ data class MainEntity(
 
     fun getHumidityString(): String {
         return humidity.toString() + "°"
+    }
+
+    fun getFeelsLikeString(): String {
+        return feelsLike.toString().substringBefore(".") + "°"
+
     }
 }

@@ -3,7 +3,7 @@ package com.example.weatherapp.ui.viewmodel
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.weatherapp.data.domain.datasource.ForecastLocalDataSource
-import com.example.weatherapp.data.local.dao.remote.IApiWeatherService
+import com.example.weatherapp.data.domain.remote.IApiWeatherService
 import com.example.weatherapp.data.domain.datasource.ForecastRemoteDataSource
 import com.example.weatherapp.data.local.db.ForecastDatabase
 import com.example.weatherapp.data.repository.ForecastRepository

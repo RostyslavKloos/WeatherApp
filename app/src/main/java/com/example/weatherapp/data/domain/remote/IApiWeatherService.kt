@@ -1,4 +1,4 @@
-package com.example.weatherapp.data.local.dao.remote
+package com.example.weatherapp.data.domain.remote
 
 import com.example.weatherapp.data.domain.model.currentWeather.CurrentWeatherResponse
 import com.example.weatherapp.data.domain.model.forecastWeather.ForecastResponse

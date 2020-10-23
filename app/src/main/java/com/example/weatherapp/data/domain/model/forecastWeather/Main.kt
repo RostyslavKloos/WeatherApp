@@ -25,4 +25,20 @@ data class Main(
     var tempMax: Double?,
     @SerializedName("temp_min")
     var tempMin: Double?
-) : Parcelable
+) : Parcelable {
+    fun getTempString(): String {
+        return temp.toString().substringBefore(".") + "°"
+    }
+
+    fun getHumidityString(): String {
+        return humidity.toString() + "°"
+    }
+
+    fun getTempMinString(): String {
+        return tempMin.toString().substringBefore(".") + "°"
+    }
+
+    fun getTempMaxString(): String {
+        return tempMax.toString().substringBefore(".") + "°"
+    }
+}

@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.exampl6e.weatherapp"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -20,6 +20,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 
     buildTypes {
@@ -28,6 +29,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
@@ -94,13 +96,6 @@ dependencies {
 
     // Gson
     implementation 'com.google.code.gson:gson:2.8.6'
-
-    // Groupie recyclerView
-    implementation "com.xwray:groupie:2.8.1"
-    implementation "com.xwray:groupie-kotlin-android-extensions:2.8.1"
-
-    // Location
-    implementation "com.google.android.gms:play-services-location:17.1.0"
 
     // Kodein
     implementation "org.kodein.di:kodein-di-generic-jvm:5.2.0"

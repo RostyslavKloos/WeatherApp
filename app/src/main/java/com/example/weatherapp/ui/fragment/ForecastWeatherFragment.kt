@@ -13,7 +13,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapp.MainActivity
 import com.example.weatherapp.R
-import com.example.weatherapp.databinding.FutureWeatherFragmentBinding
+import com.example.weatherapp.data.domain.model.forecastWeather.DayInfo
+import com.example.weatherapp.databinding.ForecastWeatherFragmentBinding
 import com.example.weatherapp.ui.adapter.ForecastAdapter
 import com.example.weatherapp.ui.viewmodel.ForecastViewModel
 import com.example.weatherapp.utils.Resource.Status.*
@@ -25,7 +26,7 @@ import timber.log.Timber
 
 class ForecastWeatherFragment : Fragment(), ForecastAdapter.WeatherItemListener {
 
-    private var _binding: FutureWeatherFragmentBinding? = null
+    private var _binding: ForecastWeatherFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: ForecastViewModel
     private lateinit var adapter: ForecastAdapter
@@ -36,7 +37,7 @@ class ForecastWeatherFragment : Fragment(), ForecastAdapter.WeatherItemListener 
         savedInstanceState: Bundle?
     ): View? {
         requireActivity().actionBar?.setTitle(R.string.api_key)
-        _binding = FutureWeatherFragmentBinding.inflate(inflater, container, false)
+        _binding = ForecastWeatherFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -62,16 +63,17 @@ class ForecastWeatherFragment : Fragment(), ForecastAdapter.WeatherItemListener 
             viewModel.forecast.observe(viewLifecycleOwner, {
                 when (it.status) {
                     SUCCESS -> {
-                        binding.rvForecast.visibility = View.VISIBLE
-                        binding.futureProgressBar.visibility = View.GONE
+
                         it.data?.let {
                             val mappedList = it.list?.let { ForecastMapper().mapFrom(
                                 it
                             )}
                             Timber.tag("lol").i(mappedList.toString())
-                            adapter = ForecastAdapter(this, it)
+                            adapter = ForecastAdapter(this, mappedList)
                         }
                         binding.rvForecast.adapter = adapter
+                        binding.rvForecast.visibility = View.VISIBLE
+                        binding.futureProgressBar.visibility = View.GONE
                     }
                     LOADING -> {
                         binding.rvForecast.visibility = View.GONE
@@ -87,9 +89,7 @@ class ForecastWeatherFragment : Fragment(), ForecastAdapter.WeatherItemListener 
             })
         })
     }
-
-    override fun onClickedWeather() {
-        //findNavController().navigate(ForecastWeatherFragmentDirections.actionFutureWeatherFragmentToDetailWeatherFragment())
-        Toast.makeText(requireContext(), "click", Toast.LENGTH_SHORT).show()
+    override fun onClickedWeather(currentDay: DayInfo) {
+        findNavController().navigate(ForecastWeatherFragmentDirections.actionFutureWeatherFragmentToDetailWeatherFragment(currentDay))
     }
 }

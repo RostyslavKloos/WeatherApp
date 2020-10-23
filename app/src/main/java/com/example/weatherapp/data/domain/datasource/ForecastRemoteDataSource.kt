@@ -1,6 +1,6 @@
 package com.example.weatherapp.data.domain.datasource
 
-import com.example.weatherapp.data.local.dao.remote.IApiWeatherService
+import com.example.weatherapp.data.domain.remote.IApiWeatherService
 
 class ForecastRemoteDataSource(private val weatherService: IApiWeatherService) : BaseDataSource() {
     suspend fun getCurrentWeather(location: String, languageCode: String, metric: String) =

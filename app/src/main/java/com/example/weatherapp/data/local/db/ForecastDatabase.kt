@@ -11,7 +11,7 @@ import com.example.weatherapp.utils.DataConverter
 import com.example.weatherapp.data.entities.CurrentWeatherEntity
 import com.example.weatherapp.data.entities.ForecastEntity
 
-@Database(entities = [CurrentWeatherEntity::class, ForecastEntity::class], version = 2)
+@Database(entities = [CurrentWeatherEntity::class, ForecastEntity::class], version = 3, exportSchema = false)
 @TypeConverters(DataConverter::class)
 abstract class ForecastDatabase : RoomDatabase() {
     abstract fun currentDao(): ICurrentWeatherDao

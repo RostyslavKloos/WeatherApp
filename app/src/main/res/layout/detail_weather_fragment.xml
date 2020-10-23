@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -15,15 +14,16 @@
         android:layout_height="match_parent"
         android:layout_marginTop="24dp">
 
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
             android:elevation="8dp"
             android:padding="0dp"
+            android:backgroundTint="@android:color/white"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_close"
+            android:src="@drawable/ic_baseline_close_24"
             app:borderWidth="0dp"
             app:layout_anchor="@id/cardView"
             app:layout_anchorGravity="center_horizontal|top"
@@ -37,17 +37,18 @@
             android:layout_marginTop="48dp"
             android:layout_marginBottom="-32dp"
             app:cardCornerRadius="24dp"
-            tools:backgroundTint="@color/colorPrimary">
+            >
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/design_default_color_primary">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@android:color/transparent">
+                   >
 
                     <TextView
                         android:id="@+id/textViewDayOfWeek"
@@ -55,15 +56,14 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="32dp"
-                        android:textColor="@color/white"
                         android:textSize="48sp"
-                        android:textStyle="bold"
-                        />
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
 
                     <ImageView
                         android:id="@+id/imageViewForecastIcon"
-                        android:layout_width="160dp"
-                        android:layout_height="160dp"
+                        android:layout_width="168dp"
+                        android:layout_height="152dp"
                         android:layout_below="@id/textViewDayOfWeek"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="12dp"
@@ -78,8 +78,7 @@
                         android:layout_centerHorizontal="true"
                         android:textColor="@color/white"
                         android:textSize="60sp"
-                        android:textStyle="bold"
-                        />
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:id="@+id/linearLayoutTempMaxMin"
@@ -88,17 +87,18 @@
                         android:layout_below="@id/textViewTemp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="8dp"
-                        android:orientation="horizontal"
-                        >
+                        android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/textViewMinTemp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="12dp"
-                            android:textColor="@color/whiteWithHalfOpacity"
+                            android:textColor="@color/white"
                             android:textSize="30sp" />
 
                         <TextView
+                            android:id="@+id/textViewMaxTemp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
