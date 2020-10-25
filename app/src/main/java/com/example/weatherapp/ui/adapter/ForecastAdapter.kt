@@ -10,7 +10,7 @@ import com.example.weatherapp.databinding.ItemForecastWeatherBinding
 
 class ForecastAdapter(
     private val listener: WeatherItemListener,
-    private val forecast: List<DayInfo>?
+    private val forecast: List<DayInfo>
 ) : RecyclerView.Adapter<ForecastViewHolder>() {
 
     interface WeatherItemListener {
@@ -23,10 +23,10 @@ class ForecastAdapter(
         return ForecastViewHolder(binding, listener)
     }
 
-    override fun onBindViewHolder(holder: ForecastViewHolder, position: Int) = holder.bind(forecast!![position])
+    override fun onBindViewHolder(holder: ForecastViewHolder, position: Int) = holder.bind(forecast[position])
 
     override fun getItemCount(): Int {
-        return forecast!!.size
+        return forecast.size
     }
 }
 

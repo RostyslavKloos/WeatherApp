@@ -51,7 +51,7 @@ class ForecastWeatherFragment : Fragment(), ForecastAdapter.WeatherItemListener 
     }
 
     private fun initViews() {
-        adapter = ForecastAdapter(this, null)
+        adapter = ForecastAdapter(this, emptyList())
         binding.rvForecast.layoutManager = LinearLayoutManager(requireContext())
     }
 
@@ -67,7 +67,7 @@ class ForecastWeatherFragment : Fragment(), ForecastAdapter.WeatherItemListener 
                         forecastResource.data?.let { forecastEntity ->
                             val mappedList = forecastEntity.list?.let { dayInfo ->
                                 ForecastMapper().mapFrom(dayInfo)}
-                            adapter = ForecastAdapter(this, mappedList)
+                            adapter = ForecastAdapter(this, mappedList ?: emptyList())
                         }
                         binding.rvForecast.adapter = adapter
                         binding.rvForecast.visibility = View.VISIBLE
