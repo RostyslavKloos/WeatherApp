@@ -8,10 +8,6 @@ import com.example.weatherapp.data.domain.model.currentWeather.Clouds
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
-/**
- * Created by Furkan on 2019-10-24
- */
-
 @Parcelize
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "Clouds")

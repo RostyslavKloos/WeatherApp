@@ -49,7 +49,7 @@ data class CurrentWeatherEntity(
         wind = WindEntity(currentWeather.wind)
     )
 
-    fun getCurrentWeather(): Weather? {
+    private fun getCurrentWeather(): Weather? {
         return weather?.first()
     }
 

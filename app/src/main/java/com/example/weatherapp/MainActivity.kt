@@ -6,17 +6,19 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Timber.plant(Timber.DebugTree())
 
         setSupportActionBar(toolbar)
 
@@ -25,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         bnv_bottomNav.setupWithNavController(navController)
         NavigationUI.setupActionBarWithNavController(this, navController)
 
-        //arrow back
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -7,10 +7,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.MapFragmentBinding
@@ -28,12 +27,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.coroutines.GlobalScope
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import timber.log.Timber
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var marker1: Marker
@@ -46,8 +45,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     private var _binding: MapFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: MapViewModel
-    private lateinit var sharedManager: SharedManager
+    private val viewModel: MapViewModel by viewModels()
+    @Inject
+    lateinit var sharedManager: SharedManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,9 +59,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setUpViewModel()
-
-        sharedManager = SharedManager(requireContext())
 
         initMap()
 
@@ -70,10 +67,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         }
     }
 
-
-    private fun setUpViewModel() {
-        viewModel = ViewModelProvider(this).get(MapViewModel::class.java)
-    }
     private fun initMap() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
@@ -101,7 +94,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         task.addOnSuccessListener { location ->
             if (location != null) {
                 currentLocation = location
-                drawMarker(currentLocation);
+                drawMarker(currentLocation)
             }
         }
     }
@@ -128,7 +121,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
     private fun drawMarker(currentLocation: Location) {
         map.clear()
-        val gps = LatLng(currentLocation.getLatitude(), currentLocation.getLongitude())
+        val gps = LatLng(currentLocation.latitude, currentLocation.longitude)
         map.addMarker(
             MarkerOptions()
                 .position(gps)
@@ -137,7 +130,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(gps, 10f))
         map.setOnMarkerClickListener {
             marker1 = it
-            Timber.tag("lolo").i(gps.toString())
             getCityName()
             false
         }

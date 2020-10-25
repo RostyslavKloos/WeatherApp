@@ -8,10 +8,6 @@ import androidx.room.Ignore
 import com.example.weatherapp.data.domain.model.forecastWeather.City
 import kotlinx.android.parcel.Parcelize
 
-/**
- * Created by Furkan on 2019-10-22
- */
-
 @Parcelize
 @Entity(tableName = "City")
 data class CityEntity(

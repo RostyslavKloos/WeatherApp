@@ -1,10 +1,8 @@
 package com.example.weatherapp.data.domain.model.forecastWeather
 
 import android.os.Parcelable
-import androidx.room.Entity
 import com.example.weatherapp.data.domain.model.currentWeather.Weather
 import com.google.gson.annotations.SerializedName
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 import java.text.SimpleDateFormat
@@ -16,29 +14,20 @@ import java.util.*
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class DayInfo(
-    @Json(name = "clouds")
     val clouds: Clouds?,
-    @Json(name = "dt")
     val dt: Long?,
     @SerializedName("dt_txt")
     val dtTxt: String?,
-    @Json(name = "main")
     val main: Main?,
-    @Json(name = "pop")
     val pop: Double?,
-    @Json(name = "rain")
     val rain: Rain?,
-    @Json(name = "sys")
     val sys: Sys?,
-    @Json(name = "visibility")
     val visibility: Int?,
-    @Json(name = "weather")
     val weather: List<Weather?>?,
-    @Json(name = "wind")
     val wind: Wind?
 ) : Parcelable {
 
-    fun getWeatherItem(): Weather? {
+    private fun getWeatherItem(): Weather? {
         return weather?.first()
     }
     fun getWeatherItemValue(): String? {

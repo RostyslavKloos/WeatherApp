@@ -5,12 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import com.example.weatherapp.data.domain.model.currentWeather.Main
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-
-/**
- * Created by Furkan on 2019-10-24
- */
 
 @Parcelize
 @Entity(tableName = "Main")
@@ -61,6 +56,5 @@ data class MainEntity(
 
     fun getFeelsLikeString(): String {
         return feelsLike.toString().substringBefore(".") + "°"
-
     }
 }

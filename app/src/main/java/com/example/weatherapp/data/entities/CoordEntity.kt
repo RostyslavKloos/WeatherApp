@@ -7,10 +7,6 @@ import androidx.room.Ignore
 import com.example.weatherapp.data.domain.model.forecastWeather.Coord
 import kotlinx.android.parcel.Parcelize
 
-/**
- * Created by Furkan on 2019-10-22
- */
-
 @Parcelize
 @Entity(tableName = "Coord")
 data class CoordEntity(

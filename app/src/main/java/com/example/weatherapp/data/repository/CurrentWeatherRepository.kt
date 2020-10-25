@@ -2,11 +2,12 @@ package com.example.weatherapp.data.repository
 
 import androidx.lifecycle.LiveData
 import com.example.weatherapp.data.domain.datasource.CurrentWeatherLocalDataSource
-import com.example.weatherapp.data.domain.datasource.ForecastRemoteDataSource
+import com.example.weatherapp.data.domain.datasource.CurrentWeatherRemoteDataSource
 import com.example.weatherapp.data.entities.CurrentWeatherEntity
 import com.example.weatherapp.utils.performGetOperation
+import javax.inject.Inject
 
-class CurrentWeatherRepository(private val currentWeatherRemoteDataSource: ForecastRemoteDataSource, private val currentWeatherLocalDataSource: CurrentWeatherLocalDataSource) {
+class CurrentWeatherRepository @Inject constructor(private val currentWeatherRemoteDataSource: CurrentWeatherRemoteDataSource, private val currentWeatherLocalDataSource: CurrentWeatherLocalDataSource) {
 
      fun getCurrentWeather(location: String, languageCode: String, metric: String) = performGetOperation(
         databaseQuery = { currentWeatherLocalDataSource.getCurrentWeather() },

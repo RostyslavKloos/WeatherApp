@@ -12,7 +12,6 @@ import kotlinx.android.parcel.Parcelize
 data class SysEntity(
     @ColumnInfo(name = "country")
     val country: String?,
-
     @ColumnInfo(name = "sunrise")
     val sunrise: Int?,
     @ColumnInfo(name = "sunset")

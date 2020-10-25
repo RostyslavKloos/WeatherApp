@@ -11,4 +11,5 @@
     <string name="weather_button_txt">weather</string>
     <string name="api_key">AIzaSyB2GgEPRzXyIcJ3wHhhSc9rwsUQQ22Vhqo</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyB2GgEPRzXyIcJ3wHhhSc9rwsUQQ22Vhqo</string>
+    <string name="MAP_API_KEY">AIzaSyB2GgEPRzXyIcJ3wHhhSc9rwsUQQ22Vhqo</string>
 </resources>

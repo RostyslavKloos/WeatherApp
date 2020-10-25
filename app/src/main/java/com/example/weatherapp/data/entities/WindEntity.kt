@@ -7,10 +7,6 @@ import androidx.room.Ignore
 import com.example.weatherapp.data.domain.model.currentWeather.Wind
 import kotlinx.android.parcel.Parcelize
 
-/**
- * Created by Furkan on 2019-10-24
- */
-
 @Parcelize
 @Entity(tableName = "Wind")
 data class WindEntity(

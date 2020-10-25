@@ -6,7 +6,6 @@ import com.example.weatherapp.data.domain.model.forecastWeather.DayInfo
 import com.example.weatherapp.data.domain.model.forecastWeather.ForecastResponse
 import kotlinx.android.parcel.Parcelize
 
-
 @Parcelize
 @Entity(tableName = "Forecast")
 data class ForecastEntity(

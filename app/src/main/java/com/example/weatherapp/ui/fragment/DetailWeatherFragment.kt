@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -13,14 +13,16 @@ import com.example.weatherapp.data.domain.model.forecastWeather.DayInfo
 import com.example.weatherapp.databinding.DetailWeatherFragmentBinding
 import com.example.weatherapp.ui.adapter.WeatherHourOfDayAdapter
 import com.example.weatherapp.ui.viewmodel.DetailWeatherViewModel
-import timber.log.Timber
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailWeatherFragment : Fragment() {
 
     private var _binding: DetailWeatherFragmentBinding? = null
     private val binding get() = _binding!!
     private val args: DetailWeatherFragmentArgs by navArgs()
-    private lateinit var viewModel: DetailWeatherViewModel
+
+    private val viewModel: DetailWeatherViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +34,6 @@ class DetailWeatherFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DetailWeatherViewModel::class.java)
         setupObservers()
     }
 
@@ -40,8 +41,8 @@ class DetailWeatherFragment : Fragment() {
         viewModel.weatherItem.set(args.dayInfo)
         viewModel.selectedDayDate = args.dayInfo.dtTxt?.substringBefore(" ")
         viewModel.getForecast().observe(viewLifecycleOwner, {
-            viewModel.selectedDayForecastLiveData.postValue(it.list?.filter {
-                it.dtTxt?.substringBefore(" ") == viewModel.selectedDayDate
+            viewModel.selectedDayForecastLiveData.postValue(it.list?.filter {dayInfo ->
+                dayInfo.dtTxt?.substringBefore(" ") == viewModel.selectedDayDate
             })
         })
 

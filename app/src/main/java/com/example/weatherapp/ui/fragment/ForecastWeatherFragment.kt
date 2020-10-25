@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,16 +21,19 @@ import com.example.weatherapp.utils.Resource.Status.*
 import com.example.weatherapp.utils.SharedManager
 import com.example.weatherapp.utils.WeatherUseCase
 import com.example.weatherapp.utils.dataTransform.ForecastMapper
-import timber.log.Timber
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class ForecastWeatherFragment : Fragment(), ForecastAdapter.WeatherItemListener {
 
     private var _binding: ForecastWeatherFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: ForecastViewModel
+    private val viewModel: ForecastViewModel by viewModels()
     private lateinit var adapter: ForecastAdapter
-    private lateinit var sharedManager: SharedManager
+    @Inject
+    lateinit var sharedManager: SharedManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,27 +51,22 @@ class ForecastWeatherFragment : Fragment(), ForecastAdapter.WeatherItemListener 
     }
 
     private fun initViews() {
-        sharedManager = SharedManager(requireContext())
-        viewModel = ViewModelProvider(this).get(ForecastViewModel::class.java)
         adapter = ForecastAdapter(this, null)
         binding.rvForecast.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun setupObservers() {
-        sharedManager.cityNameFlow.asLiveData().observe(viewLifecycleOwner, {
+        sharedManager.cityNameFlow.asLiveData().observe(viewLifecycleOwner, { cityName ->
             val toolbar: Toolbar = (activity as MainActivity?)!!.findViewById(R.id.toolbar)
-            toolbar.title = it
+            toolbar.title = cityName
 
-            viewModel.setCurrentWeatherParams(WeatherUseCase.WeatherParams(it, "en", "metric"))
-            viewModel.forecast.observe(viewLifecycleOwner, {
-                when (it.status) {
+            viewModel.setCurrentWeatherParams(WeatherUseCase.WeatherParams(cityName, "en", "metric"))
+            viewModel.forecast.observe(viewLifecycleOwner, { forecastResource ->
+                when (forecastResource.status) {
                     SUCCESS -> {
-
-                        it.data?.let {
-                            val mappedList = it.list?.let { ForecastMapper().mapFrom(
-                                it
-                            )}
-                            Timber.tag("lol").i(mappedList.toString())
+                        forecastResource.data?.let { forecastEntity ->
+                            val mappedList = forecastEntity.list?.let { dayInfo ->
+                                ForecastMapper().mapFrom(dayInfo)}
                             adapter = ForecastAdapter(this, mappedList)
                         }
                         binding.rvForecast.adapter = adapter
@@ -83,7 +81,7 @@ class ForecastWeatherFragment : Fragment(), ForecastAdapter.WeatherItemListener 
                     ERROR -> {
                         binding.futureProgressBar.visibility = View.GONE
                         binding.rvForecast.visibility = View.GONE
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), forecastResource.message, Toast.LENGTH_LONG).show()
                     }
                 }
             })
