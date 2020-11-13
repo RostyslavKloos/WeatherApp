@@ -1,10 +1,12 @@
 package com.example.weatherapp.data.domain.model.forecastWeather
 
 import android.os.Parcelable
+import android.util.Log
 import com.example.weatherapp.data.domain.model.currentWeather.Weather
 import com.google.gson.annotations.SerializedName
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -39,12 +41,31 @@ data class DayInfo(
 
     fun getDay(): String? {
         return dt?.let {
-            getDateTime(it)?.getDisplayName(TextStyle.FULL, Locale.getDefault()) }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                getDateTime(it)?.getDisplayName(TextStyle.FULL, Locale.getDefault())
+            } else {
+                getDateTimeForLowApi(it)
+            }
+        }
+    }
+
+    private fun getDateTimeForLowApi(s: Long): String {
+        return try {
+            val sdf = SimpleDateFormat("EEEE", Locale.ROOT)
+            val netDate = Date(s * 1000)
+            val formattedDate = sdf.format(netDate)
+
+            formattedDate
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            ""
+        }
     }
 
     private fun getDateTime(s: Long): DayOfWeek? {
         return try {
-            val sdf = SimpleDateFormat("dd/MM/yyyy")
+            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.ROOT)
             val netDate = Date(s * 1000)
             val formattedDate = sdf.format(netDate)
 
@@ -52,8 +73,8 @@ data class DayInfo(
                 formattedDate.substringAfterLast("/").toInt(),
                 formattedDate.substringAfter("/").take(2).toInt(),
                 formattedDate.substringBefore("/").toInt()
-            )
-                .dayOfWeek
+            ).dayOfWeek
+
         } catch (e: Exception) {
             e.printStackTrace()
             DayOfWeek.MONDAY

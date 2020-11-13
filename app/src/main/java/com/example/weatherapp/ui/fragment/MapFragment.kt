@@ -118,7 +118,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         }
     }
 
-
     private fun drawMarker(currentLocation: Location) {
         map.clear()
         val gps = LatLng(currentLocation.latitude, currentLocation.longitude)

@@ -7,7 +7,7 @@ class ForecastMapper : Mapper<List<DayInfo>, List<DayInfo>> {
         val days = arrayListOf<String>()
         val mappedArray = arrayListOf<DayInfo>()
 
-        type.forEachIndexed { _, listItem ->
+        type.forEach {listItem ->
             if (days.contains(listItem.dtTxt?.substringBefore(" ")).not()) // Add day to days
                 listItem.dtTxt?.substringBefore(" ")?.let { days.add(it) }
         }
@@ -33,7 +33,6 @@ class ForecastMapper : Mapper<List<DayInfo>, List<DayInfo>> {
             .toList() // Return as list
     }
 }
-
 
 interface Mapper<R, D> {
     fun mapFrom(type: R): D

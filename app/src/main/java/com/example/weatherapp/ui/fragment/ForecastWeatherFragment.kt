@@ -70,8 +70,8 @@ class ForecastWeatherFragment : Fragment(), ForecastAdapter.WeatherItemListener 
                             adapter = ForecastAdapter(this, mappedList ?: emptyList())
                         }
                         binding.rvForecast.adapter = adapter
-                        binding.rvForecast.visibility = View.VISIBLE
                         binding.futureProgressBar.visibility = View.GONE
+                        binding.rvForecast.visibility = View.VISIBLE
                     }
                     LOADING -> {
                         binding.rvForecast.visibility = View.GONE

@@ -48,7 +48,6 @@ class CurrentWeatherFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -121,8 +120,7 @@ class CurrentWeatherFragment : Fragment() {
     private fun bindWeather(weather: CurrentWeatherEntity) {
         binding.tvCountry.text = weather.sys?.country
         binding.tvCity.text = weather.name
-        Glide.with(binding.imgIcon).load(weather.getCurrentWeatherIconValue())
-            .into(binding.imgIcon)
+        Glide.with(binding.imgIcon).load(weather.getCurrentWeatherIconValue()).into(binding.imgIcon)
         binding.tvTempValue.text = weather.main?.getTempString()
         binding.tvValueFeelsLike.text = weather.main?.getFeelsLikeString()
         binding.tvValueHumidity.text = weather.main?.getHumidityString()
