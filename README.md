@@ -1,6 +1,5 @@
 
-# WeatherApp
-
+# WeatherApp (Legacy. An example of how NOT to do projects in nowadays)
 
 A Weather app that loads information from [OpenWeatherMap API](http://api.openweathermap.org/) to show one approach to using some of the best practices in Android Development.
 
